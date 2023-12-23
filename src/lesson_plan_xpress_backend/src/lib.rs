@@ -227,7 +227,7 @@ fn get_lesson(id: u64) -> Result<Lesson, Error> {
 }
 
 #[ic_cdk::update]
-fn insert_lesson(lesson_payload: LessonPayload) -> Result<Lesson, String> {
+fn add_lesson(lesson_payload: LessonPayload) -> Result<Lesson, String> {
     if lesson_payload.title.trim().is_empty() ||
         lesson_payload.subject.trim().is_empty() ||
        lesson_payload.description.trim().is_empty() ||
@@ -340,7 +340,7 @@ fn get_teacher(id: u64) -> Result<Teacher, Error> {
 }
 
 #[ic_cdk::update]
-fn insert_teacher(teacher_payload: TeacherPayload) -> Result<Teacher, String> {
+fn add_teacher(teacher_payload: TeacherPayload) -> Result<Teacher, String> {
     if teacher_payload.name.trim().is_empty() ||
         teacher_payload.subject.trim().is_empty() {
         return Err("Invalid Teacher data Check for valid data ".to_string());
@@ -440,7 +440,7 @@ fn get_student(id: u64) -> Result<Student, Error> {
 }
 
 #[ic_cdk::update]
-fn insert_student(student_payload: StudentPayload) -> Result<Student, String> {
+fn add_student(student_payload: StudentPayload) -> Result<Student, String> {
     if student_payload.name.trim().is_empty() ||
         student_payload.grade_level.trim().is_empty() {
         return Err("Invalid Student data Check for valid data ".to_string());
@@ -538,7 +538,7 @@ fn get_schedule_entry(id: u64) -> Result<ScheduleEntry, Error> {
 }
 
 #[ic_cdk::update]
-fn insert_schedule_entry(schedule_payload: SchedulePayload) -> Result<ScheduleEntry, String> {
+fn add_schedule_entry(schedule_payload: SchedulePayload) -> Result<ScheduleEntry, String> {
     if schedule_payload.day.trim().is_empty() ||
         schedule_payload.start_time.trim().is_empty() ||
         schedule_payload.end_time.trim().is_empty() {
@@ -608,7 +608,7 @@ fn delete_schedule_entry(id: u64) -> Result<ScheduleEntry, Error> {
 
 // add a student to a lesson
 #[ic_cdk::update]
-fn add_student_to_lesson(lesson_id: u64, student_id: u64) -> Result<Lesson, Error> {
+fn insert_student_to_lesson(lesson_id: u64, student_id: u64) -> Result<Lesson, Error> {
     let lesson = LESSON_MAP.with(|service| service.borrow().get(&lesson_id));
     if let Some(mut lesson) = lesson {
         lesson.students.push(student_id);
@@ -626,7 +626,7 @@ fn add_student_to_lesson(lesson_id: u64, student_id: u64) -> Result<Lesson, Erro
 
 // add a schedule to a lesson
 #[ic_cdk::update]
-fn add_schedule_to_lesson(lesson_id: u64, schedule_id: u64) -> Result<Lesson, Error> {
+fn insert_schedule_to_lesson(lesson_id: u64, schedule_id: u64) -> Result<Lesson, Error> {
     let lesson = LESSON_MAP.with(|service| service.borrow().get(&lesson_id));
     if let Some(mut lesson) = lesson {
         let schedule = SCHEDULE_ENTRY_MAP.with(|service| service.borrow().get(&schedule_id));
@@ -653,7 +653,7 @@ fn add_schedule_to_lesson(lesson_id: u64, schedule_id: u64) -> Result<Lesson, Er
 
 // add a lesson to a teacher
 #[ic_cdk::update]
-fn add_lesson_to_teacher(teacher_id: u64, lesson_id: u64) -> Result<Teacher, Error> {
+fn insert_lesson_to_teacher(teacher_id: u64, lesson_id: u64) -> Result<Teacher, Error> {
     let teacher = TEACHER_MAP.with(|service| service.borrow().get(&teacher_id));
     if let Some(mut teacher) = teacher {
         teacher.lessons.push(lesson_id);
@@ -671,7 +671,7 @@ fn add_lesson_to_teacher(teacher_id: u64, lesson_id: u64) -> Result<Teacher, Err
 
 // add a schedule to a teacher
 #[ic_cdk::update]
-fn add_schedule_to_teacher(teacher_id: u64, schedule_id: u64) -> Result<Teacher, Error> {
+fn insert_schedule_to_teacher(teacher_id: u64, schedule_id: u64) -> Result<Teacher, Error> {
     let teacher = TEACHER_MAP.with(|service| service.borrow().get(&teacher_id));
     if let Some(mut teacher) = teacher {
         let schedule = SCHEDULE_ENTRY_MAP.with(|service| service.borrow().get(&schedule_id));
@@ -701,7 +701,7 @@ fn add_schedule_to_teacher(teacher_id: u64, schedule_id: u64) -> Result<Teacher,
 
 // add a lesson to a student
 #[ic_cdk::update]
-fn add_lesson_to_student(student_id: u64, lesson_id: u64) -> Result<Student, Error> {
+fn insert_lesson_to_student(student_id: u64, lesson_id: u64) -> Result<Student, Error> {
     let student = STUDENT_MAP.with(|service| service.borrow().get(&student_id));
     if let Some(mut student) = student {
         student.lessons.push(lesson_id);
