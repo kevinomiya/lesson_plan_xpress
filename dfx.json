@@ -1,0 +1,30 @@
+{
+  "canisters": {
+    "lesson_plan_xpress_backend": {
+      "candid": "src/lesson_plan_xpress_backend/lesson_plan_xpress_backend.did",
+      "package": "lesson_plan_xpress_backend",
+      "type": "rust"
+    },
+    "lesson_plan_xpress_frontend": {
+      "dependencies": [
+        "lesson_plan_xpress_backend"
+      ],
+      "frontend": {
+        "entrypoint": "src/lesson_plan_xpress_frontend/src/index.html"
+      },
+      "source": [
+        "src/lesson_plan_xpress_frontend/assets",
+        "dist/lesson_plan_xpress_frontend/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
